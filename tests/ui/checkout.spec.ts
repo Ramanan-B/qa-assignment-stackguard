@@ -57,7 +57,7 @@ test.describe('Checkout', () => {
     expect(toCents(total)).toBe(expectedItemTotal + expectedTax);
   });
 
-  test('item total is shown with exactly two decimal places', async ({ inventoryPage, cartPage, checkoutPage }) => {
+  test('item total is shown with exactly two decimal places', { tag: '@known-bug' }, async ({ inventoryPage, cartPage, checkoutPage }) => {
     test.fail(true, 'Known bug BUG-02: a $99.95 cart shows "Item total: $99.94999999999999"');
 
     await inventoryPage.addToCart(...FIVE_ITEMS_99_95);
@@ -115,7 +115,7 @@ test.describe('Checkout', () => {
     await expect(inventoryPage.header.cartBadge).toHaveText('1');
   });
 
-  test('checkout is blocked when the cart is empty', async ({ inventoryPage, cartPage }) => {
+  test('checkout is blocked when the cart is empty', { tag: '@known-bug' }, async ({ inventoryPage, cartPage }) => {
     test.fail(true, 'Known bug BUG-01: an order can be completed with an empty cart');
 
     await inventoryPage.header.openCart();

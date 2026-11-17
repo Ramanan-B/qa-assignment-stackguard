@@ -41,7 +41,7 @@ test.describe('Booking: wrong ID', () => {
     expect((await booker.get('abc')).status()).toBe(404);
   });
 
-  test('deleting a booking that does not exist returns 404', async ({ booker, token }) => {
+  test('deleting a booking that does not exist returns 404', { tag: '@known-bug' }, async ({ booker, token }) => {
     test.fail(true, 'Known API bug BUG-API-01: returns 405 Method Not Allowed instead of 404');
 
     expect((await booker.delete(NON_EXISTENT_ID, token)).status()).toBe(404);
@@ -49,7 +49,7 @@ test.describe('Booking: wrong ID', () => {
 });
 
 test.describe('Booking: invalid input', () => {
-  test('creating a booking with required fields missing returns 400', async ({ booker }) => {
+  test('creating a booking with required fields missing returns 400', { tag: '@known-bug' }, async ({ booker }) => {
     test.fail(true, 'Known API bug BUG-API-02: returns 500 Internal Server Error instead of 400');
 
     const res = await booker.create({ firstname: 'QA' });
@@ -57,7 +57,7 @@ test.describe('Booking: invalid input', () => {
     expect(res.status()).toBe(400);
   });
 
-  test('creating a booking with checkout before checkin is rejected', async ({ booker, trackForCleanup }) => {
+  test('creating a booking with checkout before checkin is rejected', { tag: '@known-bug' }, async ({ booker, trackForCleanup }) => {
     test.fail(true, 'Known API bug BUG-API-03: the booking is accepted with 200');
 
     const res = await booker.create(
